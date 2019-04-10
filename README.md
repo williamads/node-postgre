@@ -1,6 +1,26 @@
 API nodejs + postgre + Oauth2
 
+Criando o banco:
+
+psql postgres
+postgres=# CREATE ROLE me WITH LOGIN PASSWORD 'password';
+postgres=# ALTER ROLE me CREATEDB;
+postgres=# \q
+psql -d postgres -U me
+postgres=> CREATE DATABASE api;
+postgres=> \c api
+api=>
+CREATE TABLE users (
+  ID SERIAL PRIMARY KEY,
+  name VARCHAR(30),
+  email VARCHAR(30)
+);
+INSERT INTO users (name, email)
+  VALUES ('Jerry', 'jerry@example.com'), ('George', 'george@example.com');
+
+
 Para rodar, executar:
+
 node index.js
 
 Pegar lista de usuários:
