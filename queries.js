@@ -1,4 +1,3 @@
-
 const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'me',
@@ -17,6 +16,17 @@ const getUsers = (request, response) => {
     })
 }
 
+// trocar para post
+const verifyLogin = (request, response) => {
+    const { email, senha } = request.body
+    pool.query('SELECT email, password FROM users WHERE email = $1 AND password = $2', [email, senha], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.json({ info : 'Sucesso, birojeckson'})
+    })
+}
+
 const getUserById = (request, response) => {
     const id = parseInt(request.params.id)
 
@@ -29,9 +39,9 @@ const getUserById = (request, response) => {
 }
 
 const createUser = (request, response) => {
-    const { name, email } = request.body
+    const { name, email, password } = request.body
 
-    pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+    pool.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3)', [name, email, password], (error, results) => {
         if (error) {
             throw error
         }
@@ -39,6 +49,7 @@ const createUser = (request, response) => {
     })
 }
 
+// @TODO: falta modificar para funcionar com senha
 const updateUser = (request, response) => {
     const id = parseInt(request.params.id)
     const { name, email } = request.body
@@ -67,6 +78,7 @@ const deleteUser = (request, response) => {
 }
 
 module.exports = {
+    verifyLogin,
     getUsers,
     getUserById,
     createUser,
