@@ -1,4 +1,4 @@
-API nodejs + postgre + Oauth2
+API nodejs + postgre
 
 Criando o banco:
 
