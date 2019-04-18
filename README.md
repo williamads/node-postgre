@@ -1,4 +1,4 @@
-API nodejs + postgre
+API node.js + postgreSQL
 
 Criando o banco:
 
